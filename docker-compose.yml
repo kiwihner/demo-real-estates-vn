@@ -1,0 +1,42 @@
+# version: "3.9"
+
+
+services:
+
+  backend:
+    build:
+      context:    ./backend
+      dockerfile: Dockerfile
+    container_name: fptRE-backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app                        # hot-reload source
+      - ./backend/pkl_models:/app/pkl_models  # mount .pkl files
+    environment:
+      - ENV=development
+      - STRICT_MODEL_LOADING=false
+      - PRICE_INTERVAL_RATIO=0.18
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+    restart: unless-stopped
+    healthcheck:
+      test:     ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 15s
+      timeout:  5s
+      retries:  3
+
+  frontend:
+    build:
+      context:    ./frontend
+      dockerfile: Dockerfile
+    container_name: fptRE-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
+
+networks:
+  default:
+    name: fptRE-network
