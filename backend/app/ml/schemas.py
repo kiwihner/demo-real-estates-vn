@@ -42,7 +42,7 @@ class PredictInput:
     ward:          str
     area:          float
     property_type: str
-    description:   str
+    description:   str =""
     # optional — có hay không tùy city/model
     street:        Optional[str] = None
     bedrooms:      Optional[int] = None

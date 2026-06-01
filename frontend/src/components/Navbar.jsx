@@ -33,13 +33,13 @@ export default function Navbar() {
       {/* ── Nav links ── */}
       <nav className="nav-links" aria-label="Điều hướng chính">
         <a href="/"         className="nav-link active">Định giá</a>
-        <a href="/projects" className="nav-link">Dự án</a>
+        {/* <a href="/projects" className="nav-link">Dự án</a>
         <a href="/news"     className="nav-link">Tin tức</a>
-        <a href="/contact"  className="nav-link">Liên hệ</a>
+        <a href="/contact"  className="nav-link">Liên hệ</a> */}
       </nav>
 
       {/* ── Account ── */}
-      <div className="nav-actions">
+      {/* <div className="nav-actions">
         <button className="btn-account" type="button">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
                strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -48,7 +48,7 @@ export default function Navbar() {
           </svg>
           Tài khoản
         </button>
-      </div>
+      </div> */}
     </header>
   );
 }

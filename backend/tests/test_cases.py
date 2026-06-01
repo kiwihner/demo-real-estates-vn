@@ -39,69 +39,68 @@ TEST_CASES = [
 
   {
     "id": "HAN-L-02",
-    "note": "Đất ngõ ô tô Cầu Giấy — khu vực đại học, dân trí cao",
+    "note": "Phố Linh Đường Hoàng Liệt Chính Chủ Bán Mảnh Đất",
     "city": "hanoi", "modelType": "land",
-    "district": "Cầu Giấy", "ward": "Dịch Vọng Hậu",
-    "area": 55.0, "propertyType": "Đất thổ cư",
-    "street": "Nguyễn Khang",
+    "district": "Hoàng Mai", "ward": "Hoàng Liệt",
+    "area": 50.0, "propertyType": "Đất thổ cư",
+    "street": "Linh Đường",
     "description": (
-      "Đất thổ cư phường Dịch Vọng Hậu, ngõ ô tô vào nhà. "
-      "Diện tích 55m2, vuông vắn, sổ hồng chính chủ. "
-      "Gần Keangnam, ĐHQG Hà Nội, siêu thị Big C. "
-      "Không quy hoạch, đường trước nhà 4m, khu dân cư văn minh."
+      "Phố Linh Đường - Hoàng Liệt Sát Hồ Linh Đàm: Chính Chủ Bá,n Mảnh Đất 50m - MT4m Ô Tô Dừng Đỗ Ngõ Thông Kinh Doanh "
+      "Sổ vuông vắn , chủ rất cần bán gấp trong tháng. "
+      "Mảnh Đất Lô Góc Hiếm Giá khu Vực ACE Nhanh Chân."
+      "Chỉ 200m ra QL1A mở rộng đường 90m tiềm năng tăng giá mạnh"
     ),
-    "expected_range": (5_500_000_000, 9_500_000_000),
+    "expected_range": (7_200_000_000, 10_800_000_000),
   },
 
   {
     "id": "HAN-L-03",
-    "note": "Đất phân lô Hà Đông — khu đô thị mới phát triển",
+    "note": "Hiếm! Bán đất Hồ Tùng Mậu - Mai Dịch - Cầu Giấy - 42m2 - Vuông vắn - đầu tư đỉnh",
     "city": "hanoi", "modelType": "land",
-    "district": "Hà Đông", "ward": "Phú Lương",
-    "area": 75.0, "propertyType": "Đất thổ cư",
+    "district": "Cầu Giấy", "ward": "Mai Dịch",
+    "area": 42.0, "propertyType": "Đất thổ cư",
+    "street": "Hồ Tùng Mậu",
     "description": (
-      "Đất phân lô khu đô thị Phú Lương, Hà Đông. "
-      "Diện tích 75m2, lô đẹp vuông vắn, mặt tiền 5m. "
-      "Đường trước nhà 7m, ô tô tránh nhau. "
-      "Sổ hồng từng lô, không quy hoạch, gần Aeon Mall Hà Đông."
+      "Mảnh đất rất phù hợp cho khách mua giữ tiền, xây ở, xây CHDV. Hộ khẩu quận Cầu Giấy. Gần ngay các trường Đại Học lớn, nếu xây cho thuê luôn kín phòng. "
+      "Đất sạch không có tranh chấp, quy hoạch. "
+      "Hiện trạng là đất trống đã xây tường bao quanh, 2 bên nhà đã xây nhà 5 tầng kiên cố."
+      "Sổ đỏ chính chủ vuông đẹp sẵn sàng giao dịch cho khách mua."
     ),
-    "expected_range": (3_000_000_000, 5_500_000_000),
+    "expected_range": (7_300_000_000, 10_900_000_000),
   },
 
   {
     "id": "HAN-NL-01",
-    "note": "Chung cư Vinhomes Smart City Tây Mỗ — dự án lớn tiện ích cao",
+    "note": "Chung cư The Price La Khê — dự án lớn tiện ích cao",
     "city": "hanoi", "modelType": "non_land",
-    "district": "Nam Từ Liêm", "ward": "Tây Mỗ",
-    "area": 68.0, "propertyType": "Chung cư / Căn hộ",
-    "bedrooms": 2, "bathrooms": 2,
-    "street": "Đại Lộ Thăng Long",
+    "district": "Hà Đông", "ward": "La Khê",
+    "area": 103, "propertyType": "Chung cư / Căn hộ",
+    "bedrooms": 3, "bathrooms": 3,
+    "street": "Tố Hữu",
     "description": (
-      "Căn hộ Vinhomes Smart City, tòa S1.02, tầng 15. "
-      "Diện tích 68m2, 2 phòng ngủ 2 vệ sinh. "
-      "Full nội thất cao cấp, ban công rộng view thoáng. "
+      "Căn hộ The Price, tòa S1.02, tầng 22. "
+      "Diện tích 103m2, 3 phòng ngủ, 3 vệ sinh, đầy đủ nội thất. "
+      "Ban công rộng view thoáng, nhiều tiện ích, gần trung tâm quận. "
       "Có thang máy, hồ bơi, gym, an ninh 24/7. "
       "Sổ hồng chính chủ, gần trường học quốc tế."
     ),
-    "expected_range": (3_200_000_000, 5_500_000_000),
+    "expected_range": (5_200_000_000, 7_400_000_000),
   },
 
   {
     "id": "HAN-NL-02",
-    "note": "Nhà phố Thanh Xuân — 4 tầng kinh doanh, ngõ ô tô",
+    "note": "Chính chủ bán căn hộ lô góc 60.5m² 3PN - 2WC - sổ đỏ lâu dài",
     "city": "hanoi", "modelType": "non_land",
-    "district": "Thanh Xuân", "ward": "Nhân Chính",
-    "area": 38.0, "propertyType": "Nhà phố",
-    "bedrooms": 4, "bathrooms": 3,
-    "street": "Lê Văn Lương",
+    "district": "Long Biên", "ward": "Giang Biên",
+    "area": 60.0, "propertyType": "Căn hộ chung cư",
+    "bedrooms": 3, "bathrooms": 2,
+    "street": "Phúc Lợi",
     "description": (
-      "Nhà phố 4 tầng Nhân Chính, Thanh Xuân. "
-      "Diện tích 38m2 x 4 tầng, mặt tiền 4m. "
-      "Ngõ ô tô vào thoải mái, kinh doanh cho thuê tốt. "
-      "Nội thất đầy đủ, thang máy, sổ hồng chính chủ. "
-      "Gần Royal City, Times City, dòng tiền ổn định."
+      "Chính chủ bán căn hộ lô góc 60.5m² 3PN - 2WC - sổ đỏ lâu dài. "
+      "Thiết kế: 3 phòng ngủ 2 vệ sinh, không gian thoáng sáng, vuông vắn. "
+      "Nội thất đầy đủ: Sofa, bàn ăn, giường tủ quần áo..."
     ),
-    "expected_range": (5_500_000_000, 9_000_000_000),
+    "expected_range": (3_000_000_000, 4_400_000_000),
   },
 
   # ══════════════════════════════════════════════════════════════════
@@ -127,68 +126,71 @@ TEST_CASES = [
 
   {
     "id": "HCM-L-02",
-    "note": "Đất hẻm xe hơi Gò Vấp — khu dân cư đông đúc",
+    "note": "Đất hẻm xe hơi Tân Bình — khu dân cư đông đúc",
     "city": "hcm", "modelType": "land",
-    "district": "Gò Vấp", "ward": "Phường 12",
-    "area": 90.0, "propertyType": "Đất thổ cư",
+    "district": "Tân Bình", "ward": "Phường 5",
+    "area": 46.0, "propertyType": "Đất thổ cư",
+    "street": "Phạm Văn Hai",
     "description": (
-      "Đất thổ cư hẻm xe hơi Gò Vấp, diện tích 90m2. "
+      "Gần chợ Phạm Văn Hai, Bảy Hiền, thuận tiện di chuyển Tân Phú Phú Nhuận Quận 10 "
       "Hẻm ô tô vào thoải mái, khu dân cư an ninh. "
+      "Mặt tiền rộng 4m."
       "Sổ hồng chính chủ, không dính quy hoạch. "
-      "Gần chợ Gò Vấp, bệnh viện, trường học đầy đủ."
+      "Khu vực hiếm nhà bán, phù hợp xây ở hoặc đầu tư giữ tài sản"
     ),
-    "expected_range": (5_000_000_000, 9_000_000_000),
+    "expected_range": (4_200_000_000, 6_200_000_000),
   },
 
   {
-    "id": "HCM-L-03",
+    "id": "HCM-NL-03",
     "note": "Đất Thủ Đức gần ĐHQG — tiềm năng cho thuê cao",
-    "city": "hcm", "modelType": "land",
-    "district": "Thủ Đức", "ward": "Linh Trung",
-    "area": 100.0, "propertyType": "Đất thổ cư",
+    "city": "hcm", "modelType": "non_land",
+    "district": "Bình Thạnh", "ward": "Phường 13",
+    "area": 41.0, "propertyType": "Căn hộ chung cư",
+    "street": "Đặng Thùy Trâm",
     "description": (
-      "Đất thổ cư Linh Trung Thủ Đức, gần ĐHQG TP.HCM. "
-      "Diện tích 100m2, hẻm xe hơi vào nhà. "
-      "Khu dân cư văn minh, sổ hồng chính chủ. "
-      "Tiềm năng kinh doanh cho thuê sinh viên cao, gần siêu thị, chợ."
+      "Pháp lý : sổ hồng riêng."
+      "Tiện ích: Giao thông thuận lợi qua các trục đường lớn: Nguyễn Văn Đậu, Phan Đăng Lưu, Nơ Trang Long, Bùi Hữu Nghĩa, chỉ 5 phút đến trung tâm Quận 1."
+      "Gần chợ Bà Chiểu, Coopmart Đinh Tiên Hoàng, Đại học Hutech, Đại học Ngoại thương, Bệnh viện Gia Định."
+      "Khu vực dân cư văn minh, an ninh tốt, gần chợ, trường học, gần khu trung tâm."
     ),
-    "expected_range": (4_000_000_000, 8_000_000_000),
+    "expected_range": (2_100_000_000, 3_200_000_000),
   },
 
   {
     "id": "HCM-NL-01",
-    "note": "Căn hộ Masteri An Phú Quận 2 — chung cư cao cấp ven sông",
+    "note": "Bán nhà giá ngợp Ngô Tất Tố, Bình Thạnh. Nhà có sẵn HĐ thuê 18 triệu/tháng, sổ riêng",
     "city": "hcm", "modelType": "non_land",
-    "district": "Thủ Đức", "ward": "An Phú",
-    "area": 70.0, "propertyType": "Chung cư / Căn hộ",
-    "bedrooms": 2, "bathrooms": 2,
-    "street": "Xa Lộ Hà Nội",
+    "district": "Bình Thạnh", "ward": "Phường 19",
+    "area": 70.0, "propertyType": "Nhà",
+    "bedrooms": 2, "bathrooms": 1,
+    "street": "Ngô Tất Tố",
     "description": (
-      "Căn hộ Masteri An Phú, tầng 20, 70m2. "
-      "2 phòng ngủ 2 vệ sinh, full nội thất cao cấp. "
-      "View sông Sài Gòn đẹp, căn góc 2 mặt thoáng. "
-      "Chung cư cao cấp, có thang máy, hồ bơi, gym. "
-      "Sổ hồng, gần Vincom Thảo Điền, gần trung tâm Q1."
+      "Vị trí trung tâm Bình Thạnh, khu dân cư sầm uất, thuận tiện di chuyển nhanh sang Quận 1, Phú Nhuận, Thủ Đức và các quận trung tâm chỉ vài phút. "
+      "Nhà mới đẹp, khai thác cho thuê ổn định với dòng tiền sẵn 18 triệu/tháng, phù hợp mua ở kết hợp đầu tư giữ tài sản lâu dài."
+      "Khu vực hiếm nhà bán giá tốt, gần nhiều tiện ích lớn như Landmark 81, Vincom, trường học, bệnh viện, quán cafe và khu ăn uống nhộn nhịp. "
+      "Sổ hồng rõ ràng."
     ),
-    "expected_range": (4_500_000_000, 8_000_000_000),
+    "expected_range": (2_200_000_000, 3_200_000_000),
   },
 
   {
     "id": "HCM-NL-02",
-    "note": "Nhà phố Tân Bình — kinh doanh mặt tiền sầm uất",
+    "note": "Nhà ở vòng xoay Điện Biên Phủ",
     "city": "hcm", "modelType": "non_land",
-    "district": "Tân Bình", "ward": "Phường 2",
-    "area": 50.0, "propertyType": "Nhà phố",
-    "bedrooms": 3, "bathrooms": 2,
+    "district": "Quận 1", "ward": "Phường Đa Kao",
+    "area": 55, "propertyType": "Nhà phố",
+    "bedrooms": 3, "bathrooms": 4,
     "street": "Hoàng Văn Thụ",
     "description": (
-      "Nhà phố mặt tiền Hoàng Văn Thụ, Tân Bình. "
-      "Diện tích 50m2, 3 tầng, mặt tiền 4m. "
-      "Kinh doanh cafe, văn phòng cho thuê dòng tiền tốt. "
-      "Gần sân bay Tân Sơn Nhất, khu dân cư sầm uất. "
-      "Nội thất đầy đủ, sổ hồng chính chủ, ô tô đỗ cửa."
+      "Do gia đình chuyển nơi ở và cần xoay việc gấp, nên chúng tôi mong muốn bán lại căn nhà trong thời gian sớm thích hợp hộ gia đình sinh sống hoặc kinh doanh cho thuê ở ngay trên đường Mai Thị Lựu Phường Đakao quận 1 (cũ) nay thuộc phường Tân Định (mới) gần vòng xoay Điện Biên Phủ."
+      "Diện tích: 5,45 x 10m (vuông vức 54,5m²)."
+      "Vị trí: Thông ra Điện Biên Phủ, gần Cầu Bông, chợ Bà Chiểu."
+      "Nhà hẻm 5m, khu dân cư an ninh, hàng xóm thân thiện."
+      "Tiện ích xung quanh bán kính 1km: Trường học, chợ, bệnh viện, dân cư sầm uất, thuận tiện ở lâu dài hoặc cho thuê, di chuyển nhanh sang trung tâm Q3, Bình Thạnh, Phú Nhuận, 5phut di chuyển qua Nhà thờ Đức Bà, Phố Đi Bộ Nguyễn Huệ."
+      "Sổ hồng riêng tên tôi - sang tên công chứng trong ngày."
     ),
-    "expected_range": (7_000_000_000, 14_000_000_000),
+    "expected_range": (2_700_000_000, 4_000_000_000),
   },
 
   # ══════════════════════════════════════════════════════════════════
@@ -200,16 +202,17 @@ TEST_CASES = [
     "id": "DAN-L-01",
     "note": "Đất biển Ngũ Hành Sơn — mặt tiền đường biển Trường Sa",
     "city": "danang", "modelType": "land",
-    "district": "Ngũ Hành Sơn", "ward": "Mỹ An",
-    "area": 105.0, "propertyType": "Đất thổ cư",
+    "district": "Cẩm Lệ", "ward": "Hòa An",
+    "area": 94.0, "propertyType": "Đất thổ cư",
+    "street": "Trường Chinh",
     "description": (
-      "Đất mặt tiền đường Trường Sa, Mỹ An, Ngũ Hành Sơn. "
-      "Diện tích 105m2, mặt tiền 7m, sổ đỏ chính chủ. "
-      "View biển Mỹ Khê tuyệt đẹp, cách biển 80m đi bộ ra biển. "
-      "Kinh doanh homestay resort tốt, ô tô vào thoải mái. "
+      "Hiếm có đất MT Trường Chinh, vị trí kinh doanh - 4tỷ350 gần bến xe Đà Nẵng."
+      "Vị trí: Gần đầu đường trục chính kinh doanh, lưu lượng xe lớn. Giáp Thanh Khê, Liên Chiểu... Khu dân cư đông đúc. Phù hợp: Kinh doanh, xây ở, đầu tư giữ tiền lâu dài."
+      "Diện tích: 94,4m² (5,84m nở hậu: 7,85m) Tài lộc. "
+      "Đường: 5.5m lề 3m. "
       "Pháp lý hoàn công, không quy hoạch."
     ),
-    "expected_range": (8_000_000_000, 18_000_000_000),
+    "expected_range": (3_500_000_000, 5_200_000_000),
   },
 
   {
@@ -246,15 +249,15 @@ TEST_CASES = [
     "id": "DAN-NL-01",
     "note": "Nhà phố mặt tiền Sơn Trà — kinh doanh gần biển Mỹ Khê",
     "city": "danang", "modelType": "non_land",
-    "district": "Sơn Trà", "ward": "An Hải Bắc",
-    "area": 90.0, "propertyType": "Nhà phố",
-    "bedrooms": 4, "bathrooms": 3,
+    "district": "Ngũ Hành Sơn", "ward": "Hòa Quý",
+    "area": 63.0, "propertyType": "Căn hộ chung cư",
+    "street": "Nguyễn Phước Lan",
+    "bedrooms": 2, "bathrooms": 1,
     "description": (
-      "Nhà phố mặt tiền đường Võ Nguyên Giáp, Sơn Trà Đà Nẵng. "
-      "Diện tích 90m2, 5 tầng, mặt tiền 5m. "
-      "Gần biển Mỹ Khê 100m, view biển đẹp. "
-      "Kinh doanh khách sạn mini, đang cho thuê 40tr/tháng. "
-      "Sổ đỏ, pháp lý hoàn công, ô tô vào thoải mái."
+      "Vị trí đắc địa,gần trung tâm, phù hợp kinh doanh take a way."
+      "Tiện ích đầy đủ từ hồ bơi, sân bóng, vườn trên sân thượng, khu vui chơi, phòng gym, yoga."
+      "An ninh tốt, bảo vệ 24/24"
+      "Phù hợp khách thích sống riêng tư, thoáng, có thêm không gian thư giãn."
     ),
     "expected_range": (9_000_000_000, 18_000_000_000),
   },
@@ -298,17 +301,17 @@ TEST_CASES = [
 
   {
     "id": "HPG-L-02",
-    "note": "Đất ngõ ô tô Ngô Quyền — khu dân cư đông, giá hợp lý",
+    "note": "Bán đất tại phường Anh Dũng, quận Dương Kinh, Hải Phòng, giá siêu hời",
     "city": "haiphong", "modelType": "land",
-    "district": "Ngô Quyền", "ward": "Máy Chai",
-    "area": 72.0, "propertyType": "Đất thổ cư",
+    "district": "Dương Kinh", "ward": "Anh Dũng",
+    "area": 50.0, "propertyType": "Đất thổ cư",
     "description": (
-      "Đất thổ cư ngõ ô tô vào, Máy Chai, Ngô Quyền. "
-      "Diện tích 72m2, vuông vắn, sổ hồng chính chủ. "
-      "Ngõ thông thoáng ô tô vào thoải mái, khu dân cư văn minh. "
-      "Gần chợ Máy Chai, bệnh viện Việt Tiệp, trường học."
+      "Siêu phẩm ngõ 3m gần chợ Phấn Dũng - Anh Dũng - Hàng Hiếm. "
+      "Diện tích 50.4m² - mặt tiền ngang 4m, hẻm ô tô vào 7m, hướng Nam mát mẻ. "
+      "Xung quanh tiện ích đầy đủ dân cư đông đúc, gần chợ, trường học các cấp. Chỉ vài phút là đến Trung Tâm Thành Phố. "
+      "Sổ hồng chính chủ, không quy hoạch, không lỗi phong thuỷ."
     ),
-    "expected_range": (2_200_000_000, 4_500_000_000),
+    "expected_range": (1_120_000_000, 1_680_000_000),
   },
 
   {

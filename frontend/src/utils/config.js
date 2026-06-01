@@ -39,7 +39,7 @@ export const PROPERTY_TYPES = {
 };
 
 // ─── Required field keys ──────────────────────────────────────────────────────
-export const REQUIRED_FIELDS = ["district", "ward", "area", "propertyType", "description"];
+export const REQUIRED_FIELDS = ["district", "ward", "area", "propertyType"];
 
 // ─── API base URL (overridden by env) ─────────────────────────────────────────
 export const API_BASE = import.meta.env.VITE_API_URL || "/api";

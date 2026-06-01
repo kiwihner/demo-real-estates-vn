@@ -5,21 +5,26 @@ Orchestration layer — kết nối HTTP request với ML pipeline.
 
 Flow một request:
   1. Nhận PredictInput (đã validate từ route)
-  2. Kiểm tra registry xem .pkl có sẵn không
-  3a. Có model → build_features() → model.predict() → expm1 → wrap output
-  3b. Không có model → mock fallback (dev / demo)
-  4. Trả PredictOutput
+  2. Inject mock description nếu user để trống
+  3. Kiểm tra registry xem .pkl có sẵn không
+  4a. Có model → build_features() → model.predict() → expm1 → wrap output
+  4b. Không có model → mock fallback (dev / demo)
+  5. Trả PredictOutput
 
 Key notes:
   - Model được train với target = log1p(price) → predict trả log → expm1 để ra VNĐ
   - Price range = ±PRICE_INTERVAL_RATIO × price_mid
-  - Confidence: RandomForest dùng std estimators, còn lại dùng range heuristic
+  - Confidence: range heuristic (estimators_ loop đã bị bỏ để tránh timeout)
+  - description là optional từ frontend — nếu rỗng sẽ inject mock description tối giản
+    để feature_builder vẫn build được nhưng keyword features = 0 → khoảng giá kém
+    chính xác hơn, confidence thấp hơn — đúng ý muốn
 """
 
 from __future__ import annotations
 
 import logging
 import random
+from dataclasses import replace as _dc_replace
 from typing import Any
 
 import numpy as np
@@ -34,27 +39,56 @@ logger = logging.getLogger(__name__)
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
+# MOCK DESCRIPTION — inject khi user để trống description
+# ═══════════════════════════════════════════════════════════════════════════════
+
+_MOCK_DESCRIPTION_TEMPLATES = {
+    "land": (
+        "Bất động sản loại {property_type} tại phường {ward}, quận {district}. "
+        "Diện tích {area}m2."
+    ),
+    "non_land": (
+        "Nhà ở loại {property_type} tại phường {ward}, quận {district}. "
+        "Diện tích {area}m2, {bedrooms} phòng ngủ, {bathrooms} phòng tắm."
+    ),
+}
+
+
+def _inject_mock_description(inp: PredictInput) -> PredictInput:
+    if inp.description and len(inp.description.strip()) >= 5:
+        return inp
+
+    template = _MOCK_DESCRIPTION_TEMPLATES.get(
+        inp.model_type,
+        _MOCK_DESCRIPTION_TEMPLATES["land"],
+    )
+    mock_desc = template.format(
+        property_type = inp.property_type or "nhà đất",
+        ward          = inp.ward          or "không rõ",
+        district      = inp.district      or "không rõ",
+        area          = int(inp.area)     if inp.area else 0,
+        bedrooms      = int(inp.bedrooms  or 0),
+        bathrooms     = int(inp.bathrooms or 0),
+    )
+
+    logger.info(
+        f"[Predictor] description rỗng → mock: \"{mock_desc[:80]}…\" "
+        f"(keyword features sẽ = 0)"
+    )
+    return _dc_replace(inp, description=mock_desc)
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
 # PUBLIC ENTRY POINT
 # ═══════════════════════════════════════════════════════════════════════════════
 
 def run_prediction(inp: PredictInput) -> PredictOutput:
-    """
-    Điểm vào duy nhất cho prediction. Gọi từ route handler.
-
-    Args:
-        inp: PredictInput đã validate
-
-    Returns:
-        PredictOutput với price range, confidence, metadata
-
-    Raises:
-        FeatureBuildError: lỗi khi build features
-    """
     logger.info(
         f"[Predictor] city={inp.city} model={inp.model_type} "
         f"area={inp.area}m² district={inp.district} ward={inp.ward}"
     )
 
+    inp   = _inject_mock_description(inp)
     key   = inp.model_key
     model = registry.get(key)
 
@@ -77,13 +111,6 @@ def run_prediction(inp: PredictInput) -> PredictOutput:
 # ═══════════════════════════════════════════════════════════════════════════════
 
 def _predict_with_model(model: Any, key: ModelKey, inp: PredictInput) -> PredictOutput:
-    """
-    Chạy model .pkl thực.
-
-    Hỗ trợ 2 cách xử lý categorical features:
-      A) Pipeline có OHE/LabelEncoder bên trong → truyền string thẳng
-      B) XGBoost train với enable_categorical=True → cần cast sang CategoricalDtype
-    """
     X = build_features(inp)
 
     # Cities dùng target log1p(price_per_m2) → phải nhân area để ra price
@@ -91,20 +118,19 @@ def _predict_with_model(model: Any, key: ModelKey, inp: PredictInput) -> Predict
     PRICE_PER_M2_TARGET_CITIES = {"danang", "haiphong", "dongnai"}
 
     try:
-        # Huế: bundle có artifacts riêng (imputer, capper, preprocessor)
-        # Cần transform thủ công trước khi đưa vào model
         if inp.city == "hue":
             log_pred = _predict_hue(model, key, X)
+        elif inp.city == "cantho":
+            log_pred = _predict_cantho(model, key, X)
         else:
             log_pred = _predict_with_retry(model, X)
+
         pred_val = float(np.expm1(log_pred[0]))
 
         if inp.city in PRICE_PER_M2_TARGET_CITIES:
-            # Model predict log1p(price_per_m2) → price = price_per_m2 × area
             price_mid = pred_val * inp.area
             logger.info(f"[Predictor] price_per_m2={pred_val:,.0f} × area={inp.area} = {price_mid:,.0f}")
         else:
-            # HN / HCM / CT: model predict log1p(price_vnd) thẳng
             price_mid = pred_val
 
     except FeatureBuildError:
@@ -115,7 +141,6 @@ def _predict_with_model(model: Any, key: ModelKey, inp: PredictInput) -> Predict
             "Kiểm tra feature vector có khớp với lúc train không."
         ) from exc
 
-    # Giá trị hợp lệ: 100tr – 500 tỷ
     if not (1e8 <= price_mid <= 5e11):
         logger.warning(
             f"[Predictor] Predicted price {price_mid:,.0f} ngoài khoảng hợp lý "
@@ -124,7 +149,7 @@ def _predict_with_model(model: Any, key: ModelKey, inp: PredictInput) -> Predict
 
     price_low  = price_mid * (1 - PRICE_INTERVAL_RATIO)
     price_high = price_mid * (1 + PRICE_INTERVAL_RATIO)
-    confidence = _estimate_confidence(model, X, price_low, price_high, price_mid)
+    confidence = _estimate_confidence(price_low, price_high, price_mid)
 
     return PredictOutput(
         price_low   = _round_price(price_low),
@@ -138,67 +163,86 @@ def _predict_with_model(model: Any, key: ModelKey, inp: PredictInput) -> Predict
 
 def _predict_hue(model: Any, key: "ModelKey", X: "pd.DataFrame") -> Any:
     """
-    Huế bundle: {model, artifacts:{imputer, capper, preprocessor, ...}, report}
-    Pipeline KHÔNG phải sklearn Pipeline — cần transform thủ công:
-      X_df → imputer.transform → capper.transform → preprocessor.transform → model.predict
-
-    model đã được load từ bundle["model"] bởi registry._extract_pipeline().
-    artifacts được cache riêng với key "artifacts".
+    Huế: bundle lưu artifacts riêng (imputer, capper, preprocessor) tách biệt với model.
+    Pipeline thực = imputer → capper → preprocessor → model.predict(array).
+    KHÔNG fallback về _predict_with_retry vì raw DataFrame sẽ sai shape.
     """
+    import pandas as pd
+
     artifacts = registry.get_artifact(key, "artifacts")
 
-    if artifacts is None or not isinstance(artifacts, dict):
-        logger.warning(f"[Predictor] Hue artifacts not found for {key}, trying direct predict")
-        return _predict_with_retry(model, X)
+    if not artifacts or not isinstance(artifacts, dict):
+        raise FeatureBuildError(
+            f"Hue artifacts not found for {key}. "
+            "Bundle phải có key 'artifacts' chứa imputer, capper, preprocessor."
+        )
 
-    imputer     = artifacts.get("imputer")
-    capper      = artifacts.get("capper")
+    imputer      = artifacts.get("imputer")
+    capper       = artifacts.get("capper")
     preprocessor = artifacts.get("preprocessor")
 
     if imputer is None or preprocessor is None:
-        logger.warning(f"[Predictor] Hue artifacts incomplete for {key}, trying direct predict")
-        return _predict_with_retry(model, X)
+        raise FeatureBuildError(
+            f"Hue artifacts incomplete for {key}: "
+            f"imputer={imputer is not None}, preprocessor={preprocessor is not None}"
+        )
 
-    try:
-        # Step 1: KMeansClusterMeanImputer — nhận DataFrame, trả DataFrame
-        X_imp = imputer.transform(X)
-        if not hasattr(X_imp, "columns"):
-            import pandas as pd
-            X_imp = pd.DataFrame(X_imp, columns=X.columns)
+    logger.info(f"[Predictor] Hue transform: imputer→capper→preprocessor→{type(model).__name__}")
 
-        # Step 2: IQRCapper — nhận DataFrame, trả DataFrame
-        if capper is not None:
-            X_cap = capper.transform(X_imp)
-        else:
-            X_cap = X_imp
+    # Step 1: KMeansClusterMeanImputer
+    X_imp = imputer.transform(X)
+    if not isinstance(X_imp, pd.DataFrame):
+        X_imp = pd.DataFrame(X_imp, columns=X.columns)
 
-        # Step 3: ColumnTransformer (OHE + passthrough) → numpy array
-        X_trans = preprocessor.transform(X_cap)
+    # Step 2: IQRCapper
+    X_cap = capper.transform(X_imp) if capper is not None else X_imp
+    if not isinstance(X_cap, pd.DataFrame):
+        X_cap = pd.DataFrame(X_cap, columns=X_imp.columns)
 
-        # Step 4: XGBoost/LGBM predict
-        return model.predict(X_trans)
+    # Step 3: ColumnTransformer → numpy array
+    X_trans = preprocessor.transform(X_cap)
+    logger.info(f"[Predictor] Hue X_trans shape: {X_trans.shape}")
 
-    except Exception as exc:
-        logger.error(f"[Predictor] Hue transform failed: {exc}, trying direct predict")
-        return _predict_with_retry(model, X)
+    # Step 4: predict
+    return model.predict(X_trans)
+
+
+def _predict_cantho(model: Any, key: "ModelKey", X: "pd.DataFrame") -> Any:
+    """
+    Cần Thơ: pipeline = ColumnTransformer(ohe+freq+num) → LGBMRegressor.
+    Pipeline nhận raw DataFrame với đúng feature_cols.
+    Timeout xảy ra khi LightGBM predict lần đầu tiên (cold start với large model).
+    Dùng thread timeout 55s để surface lỗi thay vì nginx timeout mà không có log.
+    """
+    import concurrent.futures
+
+    logger.info(f"[Predictor] CanTho predict: X shape={X.shape}, cols={X.columns.tolist()}")
+
+    def _do_predict():
+        return model.predict(X)
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=1) as executor:
+        future = executor.submit(_do_predict)
+        try:
+            result = future.result(timeout=55)
+            logger.info(f"[Predictor] CanTho predict OK: {result}")
+            return result
+        except concurrent.futures.TimeoutError:
+            raise FeatureBuildError(
+                "CanTho model.predict() vượt quá 55s. "
+                "LightGBM cold start hoặc ColumnTransformer bị treo. "
+                f"X shape={X.shape}, dtypes={X.dtypes.to_dict()}"
+            )
 
 
 def _predict_with_retry(model: Any, X: "pd.DataFrame") -> Any:
     """
-    Gọi model.predict(X).
-
-    Nếu XGBoost báo lỗi dtype (enable_categorical=True mode) →
-    cast object columns sang category rồi thử lại 1 lần.
-    Không có detection logic phức tạp, không có vòng lặp nặng.
+    Gọi model.predict(X). Retry với category dtype nếu XGBoost enable_categorical.
     """
-    import pandas as pd
-
     try:
         return model.predict(X)
-
     except Exception as exc:
         err = str(exc)
-        # XGBoost enable_categorical=True: cần cast object → category
         if "categorical" in err.lower() or "dtypes for data must be int" in err:
             logger.info("[Predictor] Retrying with category dtype cast (enable_categorical mode)")
             X_cat = X.copy()
@@ -210,49 +254,24 @@ def _predict_with_retry(model: Any, X: "pd.DataFrame") -> Any:
 
 
 def _estimate_confidence(
-    model: Any,
-    X: "pd.DataFrame",
     price_low: float,
     price_high: float,
     price_mid: float,
 ) -> float:
     """
-    Ước lượng confidence từ model.
-
-    Thứ tự ưu tiên:
-      1. RandomForest: std giữa các estimators (coefficient of variation)
-      2. Quantile / range heuristic từ interval ratio
+    Ước lượng confidence từ khoảng giá (heuristic).
+    KHÔNG dùng estimators_ loop — gây timeout với RF/XGB nhiều cây.
     """
-    # RandomForest — tính variance từ individual trees
-    if hasattr(model, "named_steps"):
-        final_step = list(model.named_steps.values())[-1]
-        if hasattr(final_step, "estimators_"):
-            try:
-                log_preds = np.array([
-                    est.predict(model[:-1].transform(X))[0]
-                    for est in final_step.estimators_
-                ])
-                prices = np.expm1(log_preds)
-                cv = prices.std() / (prices.mean() + 1)
-                return round(float(np.clip(1 - cv * 2, 0.50, 0.95)), 2)
-            except Exception:
-                pass
-
-    # Heuristic: range nhỏ → confidence cao
     range_ratio = (price_high - price_low) / (price_mid + 1)
-    confidence = max(0.55, min(0.93, 1 - range_ratio * 0.8))
+    confidence  = max(0.55, min(0.93, 1 - range_ratio * 0.8))
     return round(float(confidence), 2)
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
-# MOCK FALLBACK (khi chưa có .pkl)
+# MOCK FALLBACK
 # ═══════════════════════════════════════════════════════════════════════════════
 
 def _predict_mock(key: ModelKey, inp: PredictInput) -> PredictOutput:
-    """
-    Demo fallback — dùng mock price/m² theo city + model_type.
-    Output trông hợp lý nhưng KHÔNG phải từ model thực.
-    """
     city_ranges  = MOCK_PRICE_PER_M2.get(key.city, MOCK_PRICE_PER_M2["hanoi"])
     model_ranges = city_ranges.get(key.model_type, city_ranges["land"])
 
@@ -278,5 +297,4 @@ def _predict_mock(key: ModelKey, inp: PredictInput) -> PredictOutput:
 # ═══════════════════════════════════════════════════════════════════════════════
 
 def _round_price(value: float) -> float:
-    """Làm tròn về hàng triệu gần nhất."""
     return round(value / 1_000_000) * 1_000_000

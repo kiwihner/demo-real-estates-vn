@@ -188,7 +188,7 @@ class ModelRegistry:
             self._dir / f"{city}-{mtype}.pkl",
         ]
         for path in exact_candidates:
-            result = self._try_load(path)
+            result = self._try_load(path, key)
             if result is not None:
                 self._maybe_cache_bundle(key, result, path)
                 return self._extract_pipeline(result)
@@ -217,7 +217,7 @@ class ModelRegistry:
         logger.info(f"[Registry] Glob matched: {[p.name for p in matched]}")
 
         for path in matched:
-            result = self._try_load(path)
+            result = self._try_load(path, key)
             if result is not None:
                 self._maybe_cache_bundle(key, result, path)
                 return self._extract_pipeline(result)
@@ -225,7 +225,7 @@ class ModelRegistry:
         logger.warning(f"[Registry] ⚠️  All matched files failed to load for {city}_{mtype}")
         return None
 
-    def _try_load(self, path: Path) -> Any | None:
+    def _try_load(self, path: Path, key: "ModelKey | None" = None) -> Any | None:
         """
         Load mot file .pkl, tra ve object hoac None neu loi.
 
@@ -268,7 +268,9 @@ class ModelRegistry:
                     with open(path, "rb") as f:
                         obj = cloudpickle.load(f)
                     logger.info(f"[Registry] ✅ Loaded (cloudpickle): {path.name}")
-                    return obj
+                    if key is not None:
+                        self._maybe_cache_bundle(key, obj, path)
+                    return self._extract_pipeline(obj)
                 except Exception as cp_exc:
                     logger.error(f"[Registry] ❌ Failed (cloudpickle): {path.name}: {type(cp_exc).__name__}: {cp_exc}")
                     return None

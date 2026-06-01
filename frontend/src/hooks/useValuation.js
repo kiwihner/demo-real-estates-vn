@@ -2,15 +2,14 @@ import { useState, useCallback } from "react";
 import { REQUIRED_FIELDS, API_BASE } from "../utils/config";
 
 const INITIAL_FORM = {
-  district:     "",
-  ward:         "",
-  area:         "",
-  propertyType: "",
-  description:  "",
-  // optional
-  street:       "",
-  bedrooms:     "",
-  bathrooms:    "",
+  district:    "",
+  ward:        "",
+  area:        "",
+  propertyType:"",
+  description: "",   // optional — để trống → backend dùng mock description
+  street:      "",
+  bedrooms:    "",
+  bathrooms:   "",
 };
 
 export function useValuation() {
@@ -22,10 +21,8 @@ export function useValuation() {
   const [loading, setLoading] = useState(false);
   const [toast,   setToast]   = useState(null);
 
-  // ── field update ────────────────────────────────────────────────────────────
   const updateField = useCallback((field, value) => {
     setForm((prev) => ({ ...prev, [field]: value }));
-    // clear error as user types
     setErrors((prev) => {
       if (!prev[field]) return prev;
       const next = { ...prev };
@@ -34,25 +31,17 @@ export function useValuation() {
     });
   }, []);
 
-  // ── model switch ────────────────────────────────────────────────────────────
   const switchModel = useCallback((m) => {
     setModel(m);
     setForm((prev) => ({ ...prev, propertyType: "" }));
-    setErrors((prev) => {
-      const next = { ...prev };
-      delete next.propertyType;
-      return next;
-    });
+    setErrors((prev) => { const next = { ...prev }; delete next.propertyType; return next; });
   }, []);
 
-  // ── city switch ─────────────────────────────────────────────────────────────
   const switchCity = useCallback((c) => {
     setCity(c);
-    // clear street when switching to a city without street support
-    setForm((prev) => ({ ...prev, street: "" }));
+    setForm((prev) => ({ ...prev, street: "", district: "", ward: "" }));
   }, []);
 
-  // ── validation ──────────────────────────────────────────────────────────────
   const validate = useCallback(() => {
     const newErrors = {};
     REQUIRED_FIELDS.forEach((key) => {
@@ -61,23 +50,19 @@ export function useValuation() {
         newErrors[key] = "Vui lòng điền thông tin này";
       }
     });
-    if (form.area && isNaN(Number(form.area))) {
+    if (form.area && isNaN(Number(form.area)))
       newErrors.area = "Diện tích phải là số";
-    }
-    if (form.area && Number(form.area) <= 0) {
+    if (form.area && Number(form.area) <= 0)
       newErrors.area = "Diện tích phải lớn hơn 0";
-    }
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   }, [form]);
 
-  // ── show toast ──────────────────────────────────────────────────────────────
   const showToast = useCallback((message, type = "info") => {
     setToast({ message, type });
     setTimeout(() => setToast(null), 3500);
   }, []);
 
-  // ── submit ──────────────────────────────────────────────────────────────────
   const handleSubmit = useCallback(async () => {
     if (!validate()) {
       showToast("Vui lòng điền đầy đủ thông tin bắt buộc", "error");
@@ -90,15 +75,17 @@ export function useValuation() {
     try {
       const payload = {
         city,
-        modelType: model,
+        modelType:    model,
         district:     form.district.trim(),
         ward:         form.ward.trim(),
         area:         parseFloat(form.area),
         propertyType: form.propertyType,
+        // description: gửi chuỗi rỗng nếu user không nhập
+        // backend sẽ tự sinh mock description
         description:  form.description.trim(),
-        ...(form.street    ? { street:   form.street.trim() }       : {}),
-        ...(form.bedrooms  ? { bedrooms: parseInt(form.bedrooms) }   : {}),
-        ...(form.bathrooms ? { bathrooms: parseInt(form.bathrooms) } : {}),
+        ...(form.street    ? { street:    form.street.trim() }        : {}),
+        ...(form.bedrooms  ? { bedrooms:  parseInt(form.bedrooms) }   : {}),
+        ...(form.bathrooms ? { bathrooms: parseInt(form.bathrooms) }  : {}),
       };
 
       const res = await fetch(`${API_BASE}/predict`, {
@@ -124,7 +111,6 @@ export function useValuation() {
     }
   }, [city, model, form, validate, showToast]);
 
-  // ── reset ───────────────────────────────────────────────────────────────────
   const reset = useCallback(() => {
     setForm(INITIAL_FORM);
     setErrors({});
@@ -132,9 +118,9 @@ export function useValuation() {
   }, []);
 
   return {
-    city,   switchCity,
-    model,  switchModel,
-    form,   updateField,
+    city,    switchCity,
+    model,   switchModel,
+    form,    updateField,
     errors,
     result,
     loading,

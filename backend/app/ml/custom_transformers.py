@@ -247,7 +247,13 @@ class FrequencyEncoder(BaseEstimator, TransformerMixin):
         return self
 
     def transform(self, X):
-        X_df = pd.DataFrame(X).copy()
+        # Luôn dùng feature_names_in_ để gán column names
+        # ColumnTransformer có thể truyền array không có column names
+        cols = self.feature_names_in_ or []
+        if cols and hasattr(X, "shape") and X.shape[1] == len(cols):
+            X_df = pd.DataFrame(X, columns=cols).copy()
+        else:
+            X_df = pd.DataFrame(X).copy()
         out = pd.DataFrame(index=X_df.index)
         for col in X_df.columns:
             s = X_df[col].astype("object").where(X_df[col].notna(), "__MISSING__")
@@ -279,9 +285,9 @@ class SafeFrequencyEncoder(BaseEstimator, TransformerMixin):
         return self
 
     def transform(self, X):
-        X_df = pd.DataFrame(X).copy()
-        if list(X_df.columns) != self.columns_:
-            X_df.columns = self.columns_
+        # ColumnTransformer có thể truyền array không có column names
+        # → luôn gán columns_ vào DataFrame để lookup đúng
+        X_df = pd.DataFrame(X, columns=self.columns_).copy()
 
         encoded_cols = []
         for col in self.columns_:
