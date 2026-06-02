@@ -311,6 +311,13 @@ export const LOCATION_DATA = {
         "Phường 13","Phường 14","Phường 15","Phường 16"
       ],
 
+      "Quận 9": [
+        "Hiệp Phú","Long Bình","Long Phước","Long Thạnh Mỹ",
+        "Long Trường","Phú Hữu","Phước Bình","Phước Long A",
+        "Phước Long B","Tân Phú","Tăng Nhơn Phú A",
+        "Tăng Nhơn Phú B","Trường Thạnh"
+      ],
+
       "Quận 10": [
         "Phường 1","Phường 2","Phường 4","Phường 5",
         "Phường 6","Phường 8","Phường 9","Phường 10",
@@ -441,7 +448,7 @@ export const LOCATION_DATA = {
     label: "Tp. Huế",
     hasStreet: false,
     districts: {
-      "Phú Xuân":     ["An Cựu","An Đông","An Hòa","An Tây","Đông Ba","Gia Hội","Hương Long","Hương Sơ","Kim Long","Phú Bình","Phú Cát","Phú Hiệp","Phú Hòa","Phú Hội","Phú Nhuận","Phú Thuận","Tây Lộc","Thuận Hòa","Thuận Lộc","Thuận Thành","Trường An","Vĩnh Ninh","Vỹ Dạ","Xuân Phú"],
+      "Phú Xuân":     ["An Cựu","Hương An","Hương Xuân","An Đông","An Hòa","An Tây","Đông Ba","Gia Hội","Hương Long","Hương Sơ","Kim Long","Phú Bình","Phú Cát","Phú Hiệp","Phú Hòa","Phú Hội","Phú Nhuận","Phú Thuận","Tây Lộc","Thuận Hòa","Thuận Lộc","Thuận Thành","Trường An","Vĩnh Ninh","Vỹ Dạ","Xuân Phú"],
       "Hương Thủy":   ["Dương Hòa","Phú Bài","Thủy Bằng","Thủy Châu","Thủy Dương","Thủy Lương","Thủy Phù","Thủy Phương","Thủy Tân","Thủy Thanh","Thủy Vân"],
       "Hương Trà":    ["Bình Điền","Bình Thành","Hải Dương","Hương An","Hương Chữ","Hương Hồ","Hương Phong","Hương Thọ","Hương Toàn","Hương Văn","Hương Vinh","Tứ Hạ"],
       "Phú Vang":     ["Phú An","Phú Dương","Phú Đa","Phú Hải","Phú Lương","Phú Mậu","Phú Mỹ","Phú Thanh","Phú Thượng","Phú Xuân","Thuận An","Vinh An","Vinh Hà","Vinh Phú","Vinh Thái","Vinh Thanh","Vinh Xuân"],

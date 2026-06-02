@@ -950,9 +950,9 @@ def _build_hue(inp: PredictInput) -> pd.DataFrame:
 
         "is_large_land": int(area >= 120),
 
-        "name_len": len(inp.property_type),
-        "description_len": len(inp.description),
-        "description_word_count": len(inp.description.split()),
+        "name_len": len(inp.property_type or ""),
+        "description_len": len(inp.description or ""),
+        "description_word_count": len((inp.description or "").split()),
 
         "street_missing": int(not bool(inp.street)),
     })

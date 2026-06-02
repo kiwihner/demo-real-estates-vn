@@ -372,15 +372,15 @@ TEST_CASES = [
     "id": "HUE-L-01",
     "note": "Đất mặt đường An Dương Vương — TP Huế, kinh doanh",
     "city": "hue", "modelType": "land",
-    "district": "Phú Xuân", "ward": "An Cựu",
-    "area": 85.0, "propertyType": "Đất thổ cư",
+    "district": "Phú Xuân", "ward": "Hương An",
+    "area": 100.0, "propertyType": "Đất thổ cư",
     "description": (
-      "Đất mặt đường An Dương Vương, An Cựu, TP Huế. "
-      "Diện tích 85m2, mặt tiền 5m, sổ hồng chính chủ. "
-      "Đường rộng ô tô tránh nhau, kinh doanh tốt. "
-      "Gần trung tâm Huế, không quy hoạch, pháp lý rõ ràng."
+      "Vị trí gần chùa Thiên Mụ khu vực du lịch, nghỉ dưỡng cực đẹp. "
+      "Hẻm ô tô vào tránh nhau rộng rãi, di chuyển thuận tiện "
+      "Mặt tiền rộng 4m, sổ hồng chính chủ. "
+      "Cạnh view sông thoáng mát quanh năm, không khí trong lành"
     ),
-    "expected_range": (2_500_000_000, 5_500_000_000),
+    "expected_range": (700_000_000, 1_000_000_000),
   },
 
   {
