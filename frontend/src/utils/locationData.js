@@ -456,31 +456,31 @@ export const LOCATION_DATA = {
     },
   },
 
-  dongnai: {
-    label: "Tp. Đồng Nai",
-    hasStreet: false,
-    districts: {
-      "Biên Hòa":     ["An Bình","Bình Đa","Bửu Hòa","Bửu Long","Hiệp Hòa","Hóa An","Hố Nai","Long Bình","Long Bình Tân","Phước Tân","Quyết Thắng","Tân Biên","Tân Hiệp","Tân Hòa","Tân Hạnh","Tân Mai","Tân Phong","Tân Tiến","Thống Nhất","Trảng Dài","Trung Dũng"],
-      "Long Khánh":   ["Bảo Quang","Bảo Vinh","Phú Bình","Suối Tre","Xuân An","Xuân Bình","Xuân Hòa","Xuân Lập","Xuân Tân","Xuân Thanh"],
-      "Nhơn Trạch":   ["Đại Phước","Hiệp Phước","Long Tân","Long Thọ","Phú Đông","Phú Hội","Phú Thạnh","Phước An","Phước Khánh","Vĩnh Thanh"],
-      "Trảng Bom":    ["An Viễn","Bắc Sơn","Bình Minh","Cây Gáo","Đông Hòa","Giang Điền","Hố Nai 3","Hưng Thịnh","Quảng Tiến","Sông Trầu","Tây Hòa","Thanh Bình","Trung Hòa","Trung Sơn"],
-      "Long Thành":   ["An Phước","Bàu Cạn","Bình An","Bình Sơn","Cẩm Đường","Long An","Long Đức","Long Phước","Phước Bình","Phước Thái","Tam An","Tân Hiệp"],
-    },
-  },
+  // dongnai: {
+  //   label: "Tp. Đồng Nai",
+  //   hasStreet: false,
+  //   districts: {
+  //     "Biên Hòa":     ["An Bình","Bình Đa","Bửu Hòa","Bửu Long","Hiệp Hòa","Hóa An","Hố Nai","Long Bình","Long Bình Tân","Phước Tân","Quyết Thắng","Tân Biên","Tân Hiệp","Tân Hòa","Tân Hạnh","Tân Mai","Tân Phong","Tân Tiến","Thống Nhất","Trảng Dài","Trung Dũng"],
+  //     "Long Khánh":   ["Bảo Quang","Bảo Vinh","Phú Bình","Suối Tre","Xuân An","Xuân Bình","Xuân Hòa","Xuân Lập","Xuân Tân","Xuân Thanh"],
+  //     "Nhơn Trạch":   ["Đại Phước","Hiệp Phước","Long Tân","Long Thọ","Phú Đông","Phú Hội","Phú Thạnh","Phước An","Phước Khánh","Vĩnh Thanh"],
+  //     "Trảng Bom":    ["An Viễn","Bắc Sơn","Bình Minh","Cây Gáo","Đông Hòa","Giang Điền","Hố Nai 3","Hưng Thịnh","Quảng Tiến","Sông Trầu","Tây Hòa","Thanh Bình","Trung Hòa","Trung Sơn"],
+  //     "Long Thành":   ["An Phước","Bàu Cạn","Bình An","Bình Sơn","Cẩm Đường","Long An","Long Đức","Long Phước","Phước Bình","Phước Thái","Tam An","Tân Hiệp"],
+  //   },
+  // },
 
-  cantho: {
-    label: "Tp. Cần Thơ",
-    hasStreet: false,
-    districts: {
-      "Ninh Kiều":  ["An Bình","An Cư","An Hòa","An Khánh","An Nghiệp","An Phú","Cái Khế","Hưng Lợi","Tân An","Thới Bình","Xuân Khánh"],
-      "Bình Thủy":  ["An Thới","Bình Thủy","Bùi Hữu Nghĩa","Long Hòa","Long Tuyền","Thới An Đông","Trà An","Trà Nóc"],
-      "Cái Răng":   ["Ba Láng","Hưng Phú","Hưng Thạnh","Lê Bình","Phú Thứ","Tân Phú","Thường Thạnh"],
-      "Ô Môn":      ["Long Hưng","Phước Thới","Thới An","Thới Long","Trường Lạc"],
-      "Thốt Nốt":   ["Thốt Nốt","Thuận An","Tân Lộc","Trung Kiên","Trung Nhứt"],
-      "Phong Điền": ["Giai Xuân","Mỹ Khánh","Nhơn Ái","Nhơn Nghĩa","Tân Thới","Trường Long"],
-      "Cờ Đỏ":      ["Cờ Đỏ","Đông Hiệp","Đông Thắng","Thạnh Phú","Thới Đông","Thới Hưng","Thới Xuân","Trung An","Trung Hưng"],
-    },
-  },
+  // cantho: {
+  //   label: "Tp. Cần Thơ",
+  //   hasStreet: false,
+  //   districts: {
+  //     "Ninh Kiều":  ["An Bình","An Cư","An Hòa","An Khánh","An Nghiệp","An Phú","Cái Khế","Hưng Lợi","Tân An","Thới Bình","Xuân Khánh"],
+  //     "Bình Thủy":  ["An Thới","Bình Thủy","Bùi Hữu Nghĩa","Long Hòa","Long Tuyền","Thới An Đông","Trà An","Trà Nóc"],
+  //     "Cái Răng":   ["Ba Láng","Hưng Phú","Hưng Thạnh","Lê Bình","Phú Thứ","Tân Phú","Thường Thạnh"],
+  //     "Ô Môn":      ["Long Hưng","Phước Thới","Thới An","Thới Long","Trường Lạc"],
+  //     "Thốt Nốt":   ["Thốt Nốt","Thuận An","Tân Lộc","Trung Kiên","Trung Nhứt"],
+  //     "Phong Điền": ["Giai Xuân","Mỹ Khánh","Nhơn Ái","Nhơn Nghĩa","Tân Thới","Trường Long"],
+  //     "Cờ Đỏ":      ["Cờ Đỏ","Đông Hiệp","Đông Thắng","Thạnh Phú","Thới Đông","Thới Hưng","Thới Xuân","Trung An","Trung Hưng"],
+  //   },
+  // },
 };
 
 // Helper: lấy danh sách thành phố cho dropdown

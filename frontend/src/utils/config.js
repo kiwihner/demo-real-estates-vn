@@ -4,8 +4,8 @@ export const CITIES = [
   { id: "hcm",     label: "Tp.HCM",   code: "HCM", hasStreet: true  },
   { id: "danang",  label: "Tp.Đà Nẵng",  code: "DAN", hasStreet: true },
   { id: "hue",     label: "Tp.Huế",   code: "HUE", hasStreet: false },
-  { id: "dongnai", label: "Tp,Đồng Nai", code: "DNI", hasStreet: false },
-  { id: "cantho",  label: "Tp.Cần Thơ",  code: "CTO", hasStreet: false },
+  // { id: "dongnai", label: "Tp,Đồng Nai", code: "DNI", hasStreet: false },
+  // { id: "cantho",  label: "Tp.Cần Thơ",  code: "CTO", hasStreet: false },
   { id: "haiphong", label: "Tp.Hải Phòng", code: "HP", hasStreet: false},
 ];
 
@@ -32,7 +32,7 @@ export const PROPERTY_TYPES = {
   ],
   non_land: [
     "Căn hộ chung cư",
-    "Nhà",
+    "Nhà phố",
     "Biệt thự / Nhà liền kề",
     "Shophouse"
   ],

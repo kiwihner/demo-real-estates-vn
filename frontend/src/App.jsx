@@ -50,7 +50,7 @@ export default function App() {
         <section className="hero" aria-labelledby="hero-title">
           <div className="hero-badge">
             <span className="pulse-dot" aria-hidden="true" />
-            Multi-model AI · 7 thành phố
+            Multi-model AI · 5 thành phố
           </div>
           <h1 className="hero-title" id="hero-title">
             Định giá bất động sản<br />
@@ -58,7 +58,7 @@ export default function App() {
           </h1>
           <p className="hero-subtitle">
             Dự báo giá chính xác dựa trên dữ liệu thị trường thực tế Việt Nam.
-            Hỗ trợ đất và nhà ở tại 7 thành phố lớn.
+            Hỗ trợ đất và nhà ở tại 5 thành phố lớn.
           </p>
         </section>
 
@@ -87,11 +87,11 @@ export default function App() {
         <span className="footer-left">
           © 2026 FPT-RE AI · Kết quả chỉ mang tính tham khảo
         </span>
-        <nav className="footer-right" aria-label="Liên kết footer">
+        {/* <nav className="footer-right" aria-label="Liên kết footer">
           <a href="/privacy" className="footer-link">Chính sách</a>
           <a href="/terms"   className="footer-link">Điều khoản</a>
           <a href="/contact" className="footer-link">Liên hệ</a>
-        </nav>
+        </nav> */}
       </footer>
 
       {/* Toast notification */}
