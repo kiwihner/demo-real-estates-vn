@@ -162,7 +162,7 @@ TEST_CASES = [
     "note": "Bán nhà giá ngợp Ngô Tất Tố, Bình Thạnh. Nhà có sẵn HĐ thuê 18 triệu/tháng, sổ riêng",
     "city": "hcm", "modelType": "non_land",
     "district": "Bình Thạnh", "ward": "Phường 19",
-    "area": 70.0, "propertyType": "Nhà",
+    "area": 70.0, "propertyType": "Nhà phố",
     "bedrooms": 2, "bathrooms": 1,
     "street": "Ngô Tất Tố",
     "description": (
