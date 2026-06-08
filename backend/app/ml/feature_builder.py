@@ -440,7 +440,10 @@ HUE_NONLAND_NUMERIC = [
     "nonland_luxury_x_log_area",
     "thang_may_x_area",
 
-    "name_len","description_len", "description_word_count", "street_missing",
+    "name_len",
+    "description_len",
+    "description_word_count", 
+    "street_missing",
 ]
 HUE_NONLAND_CATEGORICAL = [
     "property_type_name",
